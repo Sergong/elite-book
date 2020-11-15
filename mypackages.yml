@@ -1,0 +1,33 @@
+---
+version: "{{ ansible_facts.distribution_version }}"
+packages:
+  - name: "@virtualization"
+  - name: htop
+  - name: avahi-tools
+  - name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ version }}.noarch.rpm"
+  - name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ version }}.noarch.rpm"
+  - name: gstreamer1-libav
+  - name: gstreamer1-plugins-bad-free
+  - name: gstreamer1-plugins-bad-free-extras
+  - name: gstreamer1-plugin-openh264
+  - name: gstreamer1-plugins-good-gtk
+  - name: gstreamer1-plugins-good-qt
+  - name: gstreamer1-plugins-base
+  - name: gstreamer1-plugins-bad-free-fluidsynth
+  - name: gstreamer1-plugins-bad-free-wildmidi
+  - name: gstreamer1-plugins-bad-free-zbar
+  - name: gstreamer1-plugins-bad-freeworld
+  - name: gstreamer1-plugins-good-extras
+  - name: lame
+  - name: "@Multimedia"  
+  - name: transmission
+  - name: mediawriter
+  - name: ffmpeg
+  - name: intel-media-driver
+  - name: libva-intel-driver
+  - name: gimp
+  - name: inkscape
+  - name: chromium-freeworld
+  - name: vlc
+  - name: code
+
