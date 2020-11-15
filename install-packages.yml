@@ -78,6 +78,13 @@
       command: 'authselect apply-changes'
       tags:
         - configure
+    
+    - name: Ensure user is in libvirt group
+      user:
+        name: smeeuwsen
+        groups: wheel,libvirt
+      tags:
+        - configure
 
     - name: Removing temp packages
       file:
