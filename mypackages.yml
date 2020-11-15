@@ -1,23 +1,30 @@
 ---
 version: "{{ ansible_facts.distribution_version }}"
+msttfonts_url: "https://sourceforge.net/projects/mscorefonts2/files/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm/download"
+msttfonts_rpm: "./msttcore-fonts-installer-2.6-1.noarch.rpm"
+msttfont_packages:
+  - name: curl
+  - name: cabextract
+  - name: xorg-x11-font-utils
+  - name: fontconfig
+  - name: "{{ msttfonts_rpm }}"
+
 packages:
   - name: "@virtualization"
+  - name: libguestfs-tools
+  - name: python3-libguestfs
+  - name: virt-top
   - name: virt-manager
-  - name: lib-virt-daemon-kvm
-  - name: qemu-kvm
   - name: libvirt-devel
   - name: gcc
   - name: make
   - name: rdesktop
   - name: jq
   - name: yamllint
-  - name: curl
-  - name: cabextract
-  - name: xorg-x11-font-utils
-  - name: fontconfig
-  - name: "https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm"
   - name: htop
   - name: avahi-tools
+  - name: nss-mdns
+  - name:  avahi
   - name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ version }}.noarch.rpm"
   - name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ version }}.noarch.rpm"
   - name: gstreamer1-libav

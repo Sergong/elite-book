@@ -23,6 +23,31 @@
       tags:
         - repo
 
+    - name: Download msttcorefonts package
+      get_url:
+        url: "{{ msttfonts_url }}"
+        dest: "{{ msttfonts_rpm }}"
+      register: msttfonts_result
+      tags:
+        - repo
+
+    - name: Install MS TrueType Fonts
+      dnf:
+        name: "{{ item.name }}"
+        state: present
+        disable_gpg_check: true
+      loop: "{{ msttfont_packages }}"
+      tags:
+        - repo
+
+
+    # - name: Show download result
+    #   debug:
+    #     var: msttfonts_result
+    #   when: msttfonts_result.failed == false and msttfonts_result.changed == true
+    #   tags:
+    #     - repo
+
     - name: Install All Packages
       dnf:
         name: "{{ item.name }}"
@@ -31,3 +56,39 @@
       tags:
         - install
 
+    - name: configure avahi
+      service:
+        name: avahi-daemon
+        state: started
+        enabled: true
+      tags:
+        - configure
+
+    - name: Ensure nsswitch config is set correctly for avahi
+      lineinfile:
+        path: /etc/authselect/user-nsswitch.conf
+        regexp: '^hosts:      files mdns4_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] myhostname dns'
+        line: 'hosts: files mdns4_minimal [NOTFOUND=return] dns myhostname'
+      notify:
+        - restart avahi
+      tags:
+        - configure
+    
+    - name: Apply nsswitch changes
+      command: 'authselect apply-changes'
+      tags:
+        - configure
+
+    - name: Removing temp packages
+      file:
+        path: "{{ msttfonts_rpm }}"
+        state: absent
+      when: msttfonts_result.failed == false
+      tags:
+        - repo
+
+  handlers:
+    - name: restart avahi
+      service:
+        name: avahi-daemon
+        state: restarted
