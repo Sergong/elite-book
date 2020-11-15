@@ -40,14 +40,6 @@
       tags:
         - repo
 
-
-    # - name: Show download result
-    #   debug:
-    #     var: msttfonts_result
-    #   when: msttfonts_result.failed == false and msttfonts_result.changed == true
-    #   tags:
-    #     - repo
-
     - name: Install All Packages
       dnf:
         name: "{{ item.name }}"
